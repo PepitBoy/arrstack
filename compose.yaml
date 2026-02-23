@@ -46,7 +46,6 @@ networks:
     volumes:
       - ${FOLDER_FOR_CONFIGS:?err}/sabnzbd:/config
       - ${FOLDER_FOR_DOWNLOADS:?err}:/data
-
     ports:
       - "${WEBUI_PORT_SABNZBD:?err}:8080"
     environment:
@@ -136,7 +135,7 @@ networks:
     restart: unless-stopped
     volumes:
       - ${FOLDER_FOR_CONFIGS:?err}/radarr:/config
-      - ${FOLDER_FOR_MOVIE_MEDIA:?err}:/data
+      - ${FOLDER_FOR_VIDEO_MEDIA:?err}:/data
     ports:
       - "${WEBUI_PORT_RADARR:?err}:7878"
     environment:
@@ -159,7 +158,7 @@ networks:
     restart: unless-stopped
     volumes:
       - ${FOLDER_FOR_CONFIGS:?err}/sonarr:/config
-      - ${FOLDER_FOR_TV_MEDIA:?err}:/data
+      - ${FOLDER_FOR_VIDEO_MEDIA:?err}:/data
     ports:
       - "${WEBUI_PORT_SONARR:?err}:8989"
     environment:
@@ -183,7 +182,7 @@ networks:
     restart: unless-stopped
     volumes:
       - ${FOLDER_FOR_CONFIGS:?err}/unpackerr:/config
-      - ${FOLDER_FOR_MEDIA:?err}/:/data
+      - ${FOLDER_FOR_DOWNLOADS:?err}/:/data
     environment:
       - PUID=${PUID:?err}
       - PGID=${PGID:?err}
