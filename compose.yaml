@@ -9,6 +9,7 @@ networks:
 ##  Function:             Torrent Download Client
 ##  Documentation:        https://docs.linuxserver.io/images/docker-qbittorrent
 ###########################################################################
+services:
   qbittorrent:
     image: linuxserver/qbittorrent:4.6.0
     container_name: qbittorrent
