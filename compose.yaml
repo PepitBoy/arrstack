@@ -11,7 +11,7 @@ networks:
 ###########################################################################
 services:
   qbittorrent:
-    image: linuxserver/qbittorrent:4.6.0
+    image: lscr.io/linuxserver/qbittorrent:latest
     container_name: qbittorrent
     restart: unless-stopped
     volumes:
