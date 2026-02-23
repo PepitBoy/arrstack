@@ -34,3 +34,47 @@ services:
 
 #    network_mode: "service:gluetun"
     network_mode: host
+
+###########################################################################
+##  Docker Compose File:  SABnzbd (LinuxServer.io)
+##  Function:             Usenet Download Client
+##  Documentation:        https://docs.linuxserver.io/images/docker-sabnzbd
+###########################################################################
+  sabnzbd:
+    image: lscr.io/linuxserver/sabnzbd:latest
+    container_name: sabnzbd
+    restart: unless-stopped
+    volumes:
+      - ${FOLDER_FOR_CONFIGS:?err}/sabnzbd:/config
+      - ${FOLDER_FOR_DOWNLOADS:?err}:/data
+    ports:
+      - "${WEBUI_PORT_SABNZBD:?err}:8080"
+    environment:
+      - PUID=${PUID:?err}
+      - PGID=${PGID:?err}
+      - TZ=${TIMEZONE:?err}
+      - DOCKER_MODS=ghcr.io/gilbn/theme.park:sabnzbd
+      - TP_THEME=${TP_THEME:?err}
+    networks:
+      - media-network
+      
+###########################################################################
+##  Docker Compose File:  Jellyseerr (fallenbagel)
+##  Function:             Media Request Manager
+##  Documentation:        https://hub.docker.com/r/fallenbagel/jellyseerr
+###########################################################################
+  jellyseerr:
+    image: fallenbagel/jellyseerr:latest
+    container_name: jellyseerr
+    restart: unless-stopped
+    volumes:
+      - ${FOLDER_FOR_CONFIGS:?err}/jellyseerr:/app/config
+    ports:
+      - "${WEBUI_PORT_JELLYSEERR:?err}:5055"
+    environment:
+      - PUID=${PUID:?err}
+      - PGID=${PGID:?err}
+      - UMASK=${UMASK:?err}
+      - TZ=${TIMEZONE:?err}
+    networks:
+      - media-network
